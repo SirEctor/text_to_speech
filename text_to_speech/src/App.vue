@@ -53,7 +53,7 @@ async function testFunc() {
     
     <button @click="testFunc" style="margin-top:20px;font-size:3em;">Generate</button>
     <h1 v-if="generating">GENERATING RESULT HERE...</h1>
-    <audio id="audio" controls="" v-else>
+    <audio id="audio" controls="true" v-else>
         <source id="source" type="audio/wav">
     </audio>
 
