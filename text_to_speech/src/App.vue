@@ -4,15 +4,20 @@ import TheWelcome from './components/TheWelcome.vue'
 
 import { ref } from 'vue'
 
-const count = ref(0)
-const theInputText = ref('')
-const chosenVoice = ref('')
+const generating = ref(true);
+console.log(generating.value);
+const theInputText = ref('');
+const chosenVoice = ref('');
 
 async function testFunc() {
   console.log(theInputText.value);
   console.log(chosenVoice.value);
-
+  console.log(generating.value);
+  generating.value = true;
+  console.log(generating.value);
   try {
+    generating.value = false;
+    
     let resp = await fetch('https://api.streamelements.com/kappa/v2/speech?voice='+chosenVoice.value+'&text="' + theInputText.value +'"');
     let mp3 = await resp.blob();
     
@@ -47,7 +52,8 @@ async function testFunc() {
     </div>
     
     <button @click="testFunc" style="margin-top:20px;font-size:3em;">Generate</button>
-    <audio id="audio" controls="">
+    <h1 v-if="generating">GENERATING RESULT HERE...</h1>
+    <audio id="audio" controls="" v-else>
         <source id="source" type="audio/wav">
     </audio>
 
