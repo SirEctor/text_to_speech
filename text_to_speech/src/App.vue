@@ -22,12 +22,22 @@ async function testFunc() {
     let mp3 = await resp.blob();
     
     let blobUrl = URL.createObjectURL(mp3);
-    document.getElementById('source').setAttribute('src', blobUrl);
-    let audio = document.getElementById('audio');
-    audio.pause();
-    audio.load();
-    audio.play();
+    let docSrc = document.getElementById('source');
+    if(!docSrc){
+      throw new Error('Missing source');
+    }else{
+      docSrc.setAttribute('src', blobUrl);
+    }
     
+    let audio = document.getElementById('audio') as HTMLVideoElement;
+    if(!audio){
+      throw new Error('Missing audio');
+    }
+    else{
+      audio.pause();
+      audio.load();
+      audio.play();
+    }
   } catch(error){
     console.log(error);
   }
